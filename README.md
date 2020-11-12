@@ -1,6 +1,6 @@
 # Vehicle Counting with Detectron2
 Project about vehicle counting in a highway using Detectron2, a [software](https://github.com/facebookresearch/detectron2/) provided by Facebook AI Research, which implements state of the art object detection algorithms. This is a case sensitive approach, as the detection area, the different car lines and the FPS update is done
-to work in accordance with the footage provided. 
+to work in accordance with the footage provided. You can see an overview of the result [here](https://www.youtube.com/watch?v=mMzGAhS8WZ8&ab_channel=towkAI).
 
 **How it works:**
  - First of all, the detection area is defined (i.e. the area in the footage that every time a different vehicle goes through it the count is updated) and also the range of every car lane. It must be kept in mind, that due to the positioning of the videocamera in the recorded footage, the lines separating the lanes have to be shifted towards the left of the frame.
