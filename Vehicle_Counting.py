@@ -83,8 +83,7 @@ def inside_box(x):
   x1,y1,x2,y2 = detection_box
   if (x1<xx<x2) and (y1<yy<y2):
     return True
-  else:
-    return False
+  return False
 
 '''
 We define some colors to enhence the visualization, in BGR, and some parameters for the text:
@@ -112,7 +111,6 @@ First we start with some definitions and imports:
   · cap = import again the video so it starts at 0
   · skip_frames : how often we are going to inspect the video, which is captured at 25fps/second.
   · total_frames : total number of frames of the video
-  · count = number of cars the have went through the area
   · lane_count = represent the count for each lane
   · num_frame = frame to inspect
   · lines_old = array used to see if a lane is empty or not
@@ -129,8 +127,6 @@ cap = cv2.VideoCapture('traffic_clip.mp4')
 skip_frames = 6
 
 total_frames = cap.get(cv2.CAP_PROP_FRAME_COUNT) - 4*25
-
-count = 0
 
 lane_count = np.zeros(3)
 
@@ -197,7 +193,6 @@ while(cap.isOpened()):
         
     for i in range(3):
       if (lines_old[i] != lines_new[i]) and lines_new[i] == 1:
-        count +=1
         lane_count[i] +=1
         objects_count[objects_new[i]] += 1 
     if 1 in lines_new:
@@ -211,7 +206,7 @@ while(cap.isOpened()):
   blk = np.zeros(frame.shape, np.uint8)
   cv2.rectangle(blk, (x1, y1), (x2, y2), color, cv2.FILLED)
   frame = cv2.addWeighted(frame, 1.0, blk, 0.25, 1)
-  frame = cv2.putText(frame,'Counts = ' + str(count),(195,100),font,fontSize,black,thickness)
+  frame = cv2.putText(frame,'Counts = ' + str(sum(lane_count)),(195,100),font,fontSize,black,thickness)
   frame = cv2.putText(frame,'L1=' + str(int(lane_count[0])),(210,150),font,1,black,thickness)
   frame = cv2.putText(frame,'L2=' + str(int(lane_count[1])),(350,150),font,1,black,thickness)
   frame = cv2.putText(frame,'L3=' + str(int(lane_count[2])),(490,150),font,1,black,thickness)
